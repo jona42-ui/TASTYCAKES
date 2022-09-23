@@ -1,6 +1,6 @@
 
 {% load static %}
-<!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -15,6 +15,16 @@
     <link rel="stylesheet" href="{% static 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css' %}">
     <script src="{% static 'https://unpkg.com/scrollreveal' %}"></script>
     <link rel="stylesheet" href="{% static 'style.css' %}">
+    <style>
+        #hello-msg{
+            font-size:18px;
+            color: #fff;
+            margin-right:20px;
+        }
+        .logout{
+            color:#fff;
+        }
+    </style>
 </head>
 
 <body>
@@ -52,6 +62,11 @@
 
 
                 </ul>
+                
+                    
+                    <span id="hello-msg">Welcome,  {{request.user}}</span>
+                    <span id="hello-msg" ><a class="logout" href="{% url 'logout' %}">Logout</a></span>
+                
             </nav>
         </div>
     </header>
