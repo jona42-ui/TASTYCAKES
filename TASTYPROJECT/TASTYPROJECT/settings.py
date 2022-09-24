@@ -21,7 +21,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-m%bb0l(v9v**(1l1g98da75^6tvyz6o@rfwa_h^9cur@f(flsb'
+SECRET_KEY = "django-insecure-m%bb0l(v9v**(1l1g98da75^6tvyz6o@rfwa_h^9cur@f(flsb"
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -32,15 +33,20 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'crispy_forms',
     'home',
-    'onlineshop.apps.OnlineshopConfig',
-    'cart.apps.CartConfig',
+    'admin',
+    'products',
+    'accounts'
+    
+
 ]
 
 MIDDLEWARE = [
@@ -129,12 +135,15 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media/')
 
-CART_SESSION_ID = 'cart'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+if DEBUG:
+    STRIPE_PUBLISHABLE_KEY = 'pk_test_51LkTDdJhzhPSz8X18Y0SZ45bhH8zaXN5yE0Zt7Bm5UzOJHAsolYEBo4krHlk1AKHKiOFMDBaH6iBiw1EG0SltNjT007s9QXVzw'
+    STRIPE_SECRET_KEY = 'sk_test_51LkTDdJhzhPSz8X19ASmxqQbW1wB2LKJkQ1ZFjESpHvrUFVU5TGFuKnok2pb7iq4MMISLAVNjj0xDCJtIrzeYPzB00V8Suitrk'
+    STRIPE_WEBHOOK_SECRET = ''

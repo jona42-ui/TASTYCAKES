@@ -1,0 +1,132 @@
+{% extends 'admin/components/base.html' %}
+
+{% load static %}
+
+
+    {% block content %}
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb bg-white">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Dashboard</h4>
+                    </div>
+                    
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                
+                <!-- RECENT SALES -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                        <div class="white-box">
+                            <div class="d-md-flex mb-3 justify-content-between ">
+                                <h3 class="box-title mb-0">Recent orders</h3>
+                                <button> <i class="fas fa-print" id='print' alt="Print"></i> </button>   
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table no-wrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">No.</th>
+                                            <th class="border-top-0">Account</th>
+                                            <th class="border-top-0"> Date and Time</th>
+                                            <th class="border-top-0">Product</th>
+                                            <th class="border-top-0">Address</th>
+                                            <th class="border-top-0">Payment Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for order in orders %}
+                                        <tr>
+                                            <td><num></td>
+                                            <td class="txt-oflo">Name: {{order.user.first_name}}  {{order.user.last_name}} <br> Username:{{order.user.username}} <br> Email:{{order.user.email}}</td>
+                                            <td>{{order.date}}</td>
+                                            <td>{{order.cake_list.name}} <br> ₹{{order.cake_list.price}} <br> <img src="/media/{{order.cake_list.image}}" style="height: 100px; width:125px"> </td>
+                                            <td class="txt-oflo">{{order.first_name}}&nbsp;{{order.last_name}} <br> {{order.house_name}}<br>{{order.location}}<br>Pin:{{order.pin}} <br> Phone: {{order.phone}} <br> Email: {{order.email}}</td>
+                                            {% if order.status == 'Pending' %}
+                                            <td><span class="text-info" style="font-weight: bolder;font-size: larger;">₹ {{order.cake_list.price}} <br> {{order.status}}</span></td>
+                                            {% else %}
+                                            <td><span class="text-success" style="font-weight: bolder;font-size: larger;">₹ {{order.cake_list.price}} <br> {{order.status}} </span> <br>  {% if order.order_status == 'Cancelled' %} <span class="text-danger" style="font-weight: bolder;font-size: larger;"> Order was cancelled later<br> and should be refunded </span> {% endif %} </td>
+                                            {% endif %}
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- Recent Comments -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <!-- .col -->
+                    <div class="col-12 ">
+                        <div class="card white-box p-0">
+                            <div class="card-body">
+                                <h3 class="box-title mb-0">Recent Messages and feedbacks</h3>
+                            </div>
+                            <div class="comment-widgets">
+                                <!-- Comment Row -->
+                                {% for message in messages %}
+                                <div class="d-flex flex-row comment-row p-3 mt-0">
+                                    <div class="comment-text ps-2 ps-md-3 w-100">
+                                        <h5 class="font-medium">{{message.name}}</h5>
+                                        <p class="font-small">{{message.email}}</p>
+                                        <span class="mb-3 d-block">{{message.message}}</span>
+                                        <div class="comment-footer d-md-flex align-items-center">
+                                
+                                            <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">{{message.date}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('#print').click(function () {
+                var pageTitle = 'CakeNBake',
+                    stylesheet = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css',
+                    win = window.open('', 'Print', 'width=500,height=300');
+                win.document.write('<html><head><title>' + pageTitle + '</title>' +
+                    '<link rel="stylesheet" href="' + stylesheet + '">' +
+                    '</head><body>' + $('.table')[0].outerHTML + '</body></html>');
+                win.document.close();
+                win.print();
+                win.close();
+                return false;
+            });
+            });
+        </script>
+   
+{% endblock %}
+

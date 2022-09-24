@@ -19,11 +19,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', include('home.urls')),
-    path('admin/', admin.site.urls),
+    path('',include('accounts.urls')),
     path('cart/',include('cart.urls',namespace='cart')),
-    path('onlineshop/',include('onlineshop.urls',namespace='onlineshop')),
-]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
+    # path('', include('home.urls')),
+    path('admin/', include('admin.urls'))
+    
+]   + static (settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
