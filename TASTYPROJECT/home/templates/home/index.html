@@ -45,7 +45,7 @@
                         <a href="about.html" class="nav-link">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Products</a>
+                        <a href="{% url 'onlineshop:product_list' %}" class="nav-link">Products</a>
                     </li>
                     <li class="nav-item">
                         <a href="about.html#reservation" class="nav-link">Reservation</a>
@@ -56,7 +56,16 @@
                     </li>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link"><i class="bx bx-cart">3</i></a>
+                    {% with total_items=cart|length %}
+                    {% if total_items > 0 %}
+            
+                    <a href="{% url 'cart:cart_detail'  %}" class="nav-link"><i class="bx bx-cart">{{ total_items}}</i></a>
+
+                    </a>
+                    {% else %}
+                    your cart is empty 
+                    {% endif %}
+                    {% endwith %}
 
                 </li>
 

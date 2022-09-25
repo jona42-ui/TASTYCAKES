@@ -1,0 +1,43 @@
+{% extends "onlineshop/base.html"%}
+{%load static%}
+
+{%block title%}
+ {% if category %}{{category.name}}{%else%} Products{%endif%}
+{%endblock%}
+
+{%block content%}
+
+<div id="sidebar">
+    <h3>Category</h3>
+    <ul>
+        <li {% if not category %} class="selected" {% endif%}>
+            <a href="{%url 'onlineshop:product_list' %}">All</a>
+        </li>
+        {%for c in categories %}
+        <li {% if category.slug == c.slug %} class="selected"{% endif %}>
+            <a href="{{c.get_absolute_url}}">{{c.get_absolute_url}} {{c.name}}</a>
+        </li>
+        {%endfor%}
+    </ul>
+</div>
+
+<div class="">
+    <div id="main" class="product-list">
+        <h1>{% if category %}{{category.name}}{%else%} Products{%endif%}</h1>
+
+        {% for product in products %}
+        <div class="item">
+            <a href="{{product.get_absolute_url}}">
+                <img src="{%if product.image%}{{product.image.url}}{%else%}{%static 'img/no_image.png'%} {%endif%}" alt="">
+            </a>
+            <a href="{{product.get_absolute_url}}">{{Product.get_absolute_url}} <br> {{product.name}}</a>
+            <br>
+            shs{{product.price}}        
+        </div>
+        {%endfor%}
+    
+    </div>
+
+</div>
+
+{%endblock%}
