@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-{% extends "onlineshop/base.html"%}
-=======
 {% extends "products/base.html"%}
->>>>>>> 6af8559 (preintegration)
 {%load static%}
 
 {%block title%}
@@ -24,7 +20,6 @@ shooping cart
         </tr>
     </thead>
     <tbody>
-<<<<<<< HEAD
         {% for item in cart%}
         {% with product=item.product %}
         <tr>
@@ -37,25 +32,6 @@ shooping cart
             <!-- <td>{{item.quantity}}</td> -->
             <td>
                 <form action="{% url 'cart:cart_add' product.id %}" method="post">
-=======
-        {% for item in items %}
-        {% with product=item.product %}
-        <tr>
-            <td>
-                <!-- <a href="{{product.get_absolute_url}}">
-                    <img src="{%if product.image %}{{product.image.url}}{%else%}{% static 'images/no_image'%}{%endif%}" alt="">
-                </a> -->
-                
-                    <a href="{{item.get_absolute_url}}">
-                    <img src="/media/{{item.image}}" alt="image">
-                </a>
-                <
-            </td>
-            <td>{{item.name}}</td>
-            <!-- <td>{{item.quantity}}</td> -->
-            <td>
-                <form action="{% url 'cart:cart_add' item.id %}" method="post">
->>>>>>> 6af8559 (preintegration)
                     {{item.update_quantity_form.quantity}}
                     {{item.update_quantity_form.override}}
                     <input type="submit" value="update">
@@ -64,11 +40,7 @@ shooping cart
             </td>
             
             <td>
-<<<<<<< HEAD
                 <form action="{% url 'cart:cart_remove' product.id%}" method="POST">
-=======
-                <form action="{% url 'cart:cart_remove' item.id%}" method="POST">
->>>>>>> 6af8559 (preintegration)
                     <input type="submit" value="remove">
                     {%csrf_token%}
                 </form>
@@ -86,11 +58,7 @@ shooping cart
     </tbody>
 </table>
 <p class="text-right">
-<<<<<<< HEAD
-    <a href="{% url 'onlineshop:product_list' %}" class="buttonlight">continue shopping</a>
-=======
     <a href="{% url 'accounts:homepage' %}" class="buttonlight">continue shopping</a>
->>>>>>> 6af8559 (preintegration)
     <a href="{{cart.clear}}" class="button">checkout</a>
 </p>
 {%endblock%}

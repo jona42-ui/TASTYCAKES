@@ -1,16 +1,5 @@
 from decimal import Decimal
 from django.conf import settings
-<<<<<<< HEAD
-from onlineshop.models import Product
-
-class Cart(object):
-
-    def __init__(self,requset):
-
-        # initalising cart
-
-        self.session = requset.session
-=======
 from products.models import Product,cake_list
 
 class Cart(object):
@@ -20,7 +9,6 @@ class Cart(object):
         # initalising cart
 
         self.session = request.session
->>>>>>> 6af8559 (preintegration)
         cart = self.session.get(settings.CART_SESSION_ID)
 
         if not cart:
