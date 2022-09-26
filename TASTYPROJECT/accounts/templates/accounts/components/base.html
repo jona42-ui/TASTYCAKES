@@ -20,7 +20,16 @@
     <link rel="stylesheet" href="{% static 'assets/theme/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'assets/gallery/style.css' %}">
     <link rel="stylesheet" href="{% static 'assets/mobirise/css/mbr-additional.css' %}" type="text/css">
-    
+    <link rel="stylesheet" type="text/css" href="{% static 'fontawesome-free/css/all.min.css' %}" />
+	<!-- Bootstrap 4 CSS -->
+	<link rel="stylesheet" type="text/css" href="{% static 'bs4/bootstrap.min.css' %}" />
+	<!-- Main Jquery -->
+	<script type="text/javascript" src="{% static 'jquery.min.js' %}"></script>
+	<!-- Bootstrap 4 JS -->
+	<script type="text/javascript" src="{% static 'bs4/bootstrap.min.js' %}"></script>
+	<!-- CustomJs -->
+	{% comment %} <link rel="stylesheet" type="text/css" href="{% static 'custom.css' %}" />
+	<script type="text/javascript" src="{% static 'custom.js' %}"></script> {% endcomment %}
 
 
 
@@ -93,6 +102,7 @@
   <script src="{% static 'assets/theme/js/script.js' %}"></script>
   <script src="{% static 'assets/gallery/player.min.js' %}"></script>
   <script src="{% static 'assets/gallery/script.js' %}"></script>
+  <script src="https://unpkg.com/htmx.org@1.8.0"></script>
 
 </body>
 

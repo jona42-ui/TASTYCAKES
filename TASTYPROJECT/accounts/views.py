@@ -13,7 +13,14 @@ from products.forms import make_order_form,message_form
 def indexpage(request):
     context = dict()
     context['title'] = 'indexpage'
-    return render(request,'home/index.html',context)
+    return render(request,'accounts/index.html',context)
+
+
+def aboutus(request):
+    context = dict()
+    context['title'] = 'about-us'
+    return render(request,'accounts/about-us.html',context)
+
 
 def homepage(request):
     context = dict()
@@ -104,8 +111,6 @@ def checkout(request,id):
             return render(request,'accounts/landingpage.html',context)
     return render(request,'accounts/delivery_details.html',context)
 
-def landing_page(request):
-    return render(request,'accounts/landingpage.html')
 
 def payment_cancelled(request):
     cancel_order = orders.objects.latest('id')

@@ -1,6 +1,9 @@
+
+from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
 from django.core import validators
+import datetime
 
 # Create your models here.
 
@@ -14,10 +17,13 @@ categories = [
 
 class cake_list(models.Model):
     name = models.CharField(max_length=30)
+    slug =models.SlugField(max_length=100, db_index=True, default='null')
     category = models.CharField(max_length=30, choices = categories , default = 'Select Category')
     description = models.CharField( max_length=300)
     price = models.IntegerField(blank=True, null=True)
     image = models.ImageField(upload_to='images/')
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    updated = models.DateTimeField(auto_now=True, null=True)
 
 class orders(models.Model):
     first_name = models.CharField(max_length=30)
@@ -63,4 +69,6 @@ class Product(models.Model):
             validators.MaxValueValidator(100000)
         ]
     )
-
+    
+    
+    

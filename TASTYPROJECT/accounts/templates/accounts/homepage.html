@@ -1,13 +1,21 @@
 {% extends 'accounts/components/base.html' %}
+{% load crispy_forms_tags %}
+
 {% load static %}
 {% block content %}
+
+
 
 <section class="mbr-gallery cid-rbaMy1tJOl" once="shops" id="shop6-2" data-sortbtn="btn-primary">
     <div>
         <div class="mbr-shop" shop__showsidebar="">
+            
+        
+        
             <!-- Shop Gallery -->
             <div class="row col-md-12">
                 <div class="col-xl-2 sidebar">
+                    
                     {% include 'accounts/components/sidebar.html' %}
                 </div>
                 <div class="wrapper-shop-items col-xl-10">
@@ -30,7 +38,7 @@
                                                 </h4>
                                                 <div class="price-block">
                                                     <span class="shop-item-price mbr-fonts-style display-5">
-                                                        ₹ {{item.price}}
+                                                        ugx {{item.price}}
                                                     </span>
                                                 </div>
                                                 <div class="card-description">
@@ -38,10 +46,11 @@
                     
                                                 </div>
                                                 <div class="mbr-section-btn" buttons="0" style="display: none;">
-                                                    <a href="{% url 'accounts:checkout' item.id %}"
-                                                        class="btn btn-secondary display-7">
-                                                        Buy now!
-                                                    </a>
+                                                    <form action="{% url 'cart:cart_add' item.id %} " method="POST">
+                                                        {{ form|crispy }}
+                                                        {%csrf_token%}
+                                                        <input class="btn btn-primary" type="submit" value="add to cart">
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
