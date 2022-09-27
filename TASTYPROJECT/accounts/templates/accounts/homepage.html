@@ -47,7 +47,7 @@
                                                 </div>
                                                 <div class="mbr-section-btn" buttons="0" style="display: none;">
                                                     <form action="{% url 'cart:cart_add' item.id %} " method="POST">
-                                                        {{ form|crispy }}
+                                                        {{cart_product_form}}
                                                         {%csrf_token%}
                                                         <input class="btn btn-primary" type="submit" value="add to cart">
                                                     </form>

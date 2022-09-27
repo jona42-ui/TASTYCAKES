@@ -1,4 +1,4 @@
-from django.shortcuts import render,reverse,redirect
+from django.shortcuts import render,reverse,redirect,get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.contrib.auth import login,logout,authenticate
@@ -7,6 +7,7 @@ from products.models import cake_list,orders,messages
 from .forms import SignUpForm
 from products.forms import make_order_form,message_form
 
+from cart.forms import CartAddProductForm
 
 # Create your views here.
 
@@ -23,9 +24,12 @@ def aboutus(request):
 
 
 def homepage(request):
-    context = dict()
+    # context = dict()
     items = cake_list.objects.all()
-    context['items'] = items
+    # product = get_object_or_404(cake_list,id=id,slug = slug)
+    cart_product_form = CartAddProductForm()
+    # context['items'] = items
+    context = {'items':items,'cart_product_form':cart_product_form}
     return render(request,'accounts/homepage.html',context)
 
 def category_filter(request,category_name):
