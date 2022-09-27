@@ -8,7 +8,7 @@ from .forms import SignUpForm
 from products.forms import make_order_form,message_form
 
 from cart.forms import CartAddProductForm
-
+from cart.cart import Cart
 # Create your views here.
 
 def indexpage(request):
@@ -105,6 +105,7 @@ def checkout(request,id):
     form = make_order_form(request.POST or None)
     context['customer'] = customer
     context['form'] = form
+    context['cart'] = Cart
     if request.method == "POST":
         if form.is_valid: 
             order=form.save(commit = False)    
