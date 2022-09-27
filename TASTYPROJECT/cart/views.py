@@ -3,8 +3,13 @@ from django.views.decorators.http import require_POST
 from products.models import Product , cake_list
 from .cart import Cart
 from .forms import CartAddProductForm
+from django.contrib.auth.decorators import login_required
+
+
+from products.forms import make_order_form
 # Create your views here.
 
+@login_required(login_url="/login/")
 @require_POST
 def cart_add(request,product_id):
     cart = Cart(request)
@@ -26,4 +31,5 @@ def cart_detail(request):
 
     for item in cart:
         item['update_quantity_form'] = CartAddProductForm(initial={'quantity':item['quantity'],'override':True})
-    return render(request,'cart/detail.html',{'cart':cart})
+    return render(request,'cart/detail.html',{'cart':cart,'make_order_form':make_order_form})
+    
