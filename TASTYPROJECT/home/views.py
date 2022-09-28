@@ -1,52 +1,77 @@
-from django.shortcuts import render,redirect
+from itertools import product
+from turtle import color
+from django.shortcuts import render
 from django.http import  HttpResponse
-from django.forms import inlineformset_factory
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
-from .forms import CreateUserForm
-from django.contrib import messages
-# Create your views here.
+from .models import Category,Color,Product,ProductAttribute
+from products.models import cake_list
 
-@login_required(login_url='login')#refuses anonymous personnel to access inner web page
+#Home page 
 def index(request):
-    return render(request, 'home/index.html')
+    data=cake_list.objects.all()
+    return render(request, 'index1.html',{'data':data})
 
-def registerPage(request):
-    if request.user.is_authenticated:
-        return redirect('index')
-    else:    
-        form = CreateUserForm()
-    
-        if request.method == 'POST':
-           form = CreateUserForm(request.POST)
-           if form.is_valid():
-               form.save()
-               user = form.cleaned_data.get('username')
-               messages.success(request, 'Account was created for '+user)
-               return redirect('login')
+#Category
+def category_list(request):
+    data=Category.objects.all().order_by('-id')
+    return render(request,'category_list.html',{'data':data})
 
-    context = {'form':form} 
-    return render(request,'home/register.html',context)       
+#Flavours
+def color_list(request):
+    data=Color.objects.all().order_by('-id')
+    return render(request,'color_list.html',{'data':data})
 
-def loginPage(request):
-    if request.user.is_authenticated:
-        return redirect('index')
-    else:    
-        if request.method == 'POST':
-           username=request.POST.get('username')
-           password=request.POST.get('password')
-        
-           user = authenticate(request, username=username, password=password)
-           if user is not None:
-               login(request, user)
-               return redirect('index')
-           else:
-               messages.info(request, 'Username OR password is incorrect')
-            
-    context = {}
-    return render(request, 'home/login.html',context)
+#Product list
+def product_list(request):
+    data=Product.objects.all().order_by('-id')
+    cats=Product.objects.distinct().values('Category__title')
+    Colors=Product.objects.distinct().values('Color__title','Color__id','Color__color_code')
+    Sizes=Product.objects.distinct().values('Size__title','Size__id')
+    #price=ProductAttribute.distinct().values('')
+    return render(request,'product_list.html',
+                  {
+                      'data':data,
+                      'cats':cats,
+                      'Colors':Colors,
+                      'Sizes':Sizes,
+                  }
+                  )
+#product list according to category
+def category_product_list(request,cat_id,):
+    category=Category.objects.get(id=cat_id)
+    data=Product.objects.filter(Category=category).order_by('-id')
+    cats=Product.objects.distinct().values('Category__title','Category__id')
+    Colors=Product.objects.distinct().values('Color__title','Color__id','Color__color_code')
+    Sizes=Product.objects.distinct().values('Size__title','Size__id')
+    return render(request,'category_product_list.html',
+                  {
+                      'data':data,
+                      'cats':cats,
+                      'Colors':Colors,
+                      'Sizes':Sizes,
+                  }
+                  )    
+#product list according to color
+def color_product_list(request,color_id):
+    color=Color.objects.get(id=color_id)
+    data=Product.objects.filter(Color=color).order_by('-id')
+    cats=Product.objects.distinct().values('Category__title','Category__id')
+    Colors=Product.objects.distinct().values('Color__title','Color__id','Color__color_code')
+    Sizes=Product.objects.distinct().values('Size__title','Size__id')
+    return render(request,'color_product_list.html',
+                  {
+                      'data':data,
+                      'cats':cats,
+                      'Colors':Colors,
+                      'Sizes':Sizes,
+                  }
+                  )        
+#product_detail
+# def product_detail(request,slug,id):
+#     product=Product.objects.get(id=id)
+#     return render(request,'product_detail.html',{'data':product})
 
-def logoutUser(request):
-    logout(request)
-    return redirect('login')
+#Search
+def search(request):
+    q=request.GET['q']
+    data=Product.objects.filter(title__icontains=q).order_by('-id')
+    return render(request,'search.html',{'data':data})    

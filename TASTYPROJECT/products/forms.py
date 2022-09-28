@@ -9,7 +9,8 @@ class add_cake_form(forms.ModelForm):
 class make_order_form(forms.ModelForm):
     class Meta:
         model = orders
-        fields = ['first_name','last_name','email','phone','house_name','pin','location']
+        fields = ['first_name','last_name','email','phone','house_name','pin','location','paid_amount']
+        # fields = ['phone','house_name','pin','location','paid_amount']
 
 class message_form(forms.ModelForm):
     class Meta:

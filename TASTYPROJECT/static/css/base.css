@@ -12,21 +12,24 @@ h1, h2, h3, h4, h5 , h6 {
 
 a {
     text-decoration:none;
-    color:#5993bb;
+    color:#f78b9f;;
 }
 
-a:hover {
-    color:#77b6e2;
-}
+a.focus {
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(246, 45, 81, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(246, 45, 81, 0.5); }
 
 a.button, input[type="submit"] {
     color:#fff;
-    background:#5993bb;
+    background:#e83e8c;;
     border-radius:4px;
     padding:10px 20px;
     font-size:14px;
     border:0;
 }
+.focus {
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(246, 45, 81, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(246, 45, 81, 0.5); }
 
 a.button.light {
     color:#666;
@@ -63,7 +66,7 @@ tbody tr.subtotal {
 }
 
 thead th, tbody tr.total {
-    background:#5993bb;
+    background:#f62d51;;
     color:#fff;
     font-weight:bold;
 }
@@ -169,7 +172,7 @@ ul.errorlist {
 }
 
 #sidebar ul li.selected {
-    background:#5993bb;
+    background:#f62d51;;
     border-radius:4px;
 }
 
@@ -231,11 +234,11 @@ ul.errorlist {
     background:#efefef;
     padding:10px 20px;
     color:#333;
-    border-bottom:4px solid #5993bb;
+    border-bottom:4px solid #f62d51;;
 }
 
 .order-info h3 {
-    color:#5993bb;
+    color:#f62d51;;
 }
 
 .order-info ul li {
