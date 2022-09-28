@@ -6,16 +6,16 @@ from django.contrib import messages as mssg
 from products.models import cake_list,orders,messages
 from .forms import SignUpForm
 from products.forms import make_order_form,message_form
-
+from home import views
 from cart.forms import CartAddProductForm
 from cart.cart import Cart
 # Create your views here.
 
 def indexpage(request):
-    context = dict()
-    context['title'] = 'indexpage'
-    return render(request,'accounts/index.html',context)
-
+    # context = dict()
+    # context['title'] = 'indexpage'
+    # return render(request,'home/index1.html',context)
+    return redirect('/home/')
 
 def aboutus(request):
     context = dict()
@@ -100,14 +100,15 @@ def messages(request):
     return render(request,'accounts/messages.html',context)
 
 def checkout(request,id):
+    cart = Cart(request)
     context = dict()
     customer=request.user
     form = make_order_form(request.POST or None)
     context['customer'] = customer
     context['form'] = form
-    context['cart'] = Cart
+    context['cart'] = cart
     if request.method == "POST":
-        if form.is_valid: 
+        if form.is_valid(): 
             order=form.save(commit = False)    
             order.user_id = customer.id
             order.cake_list_id = id
