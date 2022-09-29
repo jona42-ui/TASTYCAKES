@@ -2,7 +2,26 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .bordert{
+            font-size: 28px;
+            font-family:sans-serif;
+            font-weight: 600;
+            color: white;
+             
+        }
+    </style>
+</head>
+<body>
+    
+</body>
+</html>
 <div class="header3  cid-rbb39CwPur" id="header3-6" data-sortbtn="btn-primary">
     <div class="mbr-overlay" style="opacity: 0.2;">
     </div>
@@ -10,7 +29,14 @@
     <div class="row my-auto "  style="height: 400px; width:45%;">
         <form method="post" id="myform">
             {% csrf_token %}
-            {{ form|crispy }}
+            <fieldset class="form-group">
+                <legend class="bordert">
+                    Log in to your account.
+                </legend>
+           
+                {{ form|crispy }}
+            </fieldset>
+           
             <div class="row d-flex justify-content-around">
                 <div class="navbar-buttons mbr-section-btn">
                     <a onclick="document.getElementById('myform').submit()" class="btn btn-sm btn-info display-4" >Login</a>
