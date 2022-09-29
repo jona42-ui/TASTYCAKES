@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect,reverse
 from django.contrib.auth.models import User
 from products.models import orders,messages
+from django.core.exceptions import MultipleObjectsReturned
 
 # Create your views here.
 
@@ -12,9 +13,9 @@ def dashboard(request):
 
 def update_profile(request):
     context = dict()
-    admin_user = User.objects.get(is_superuser = False )
+    admin_user = User.objects.filter(is_superuser = True ).first()
     context['user'] = admin_user
-    if request.method == "POST":
+    if request == request.POST:
         first_name = request.POST.get('first_name')
         username = request.POST.get('username')
         email = request.POST.get('email')

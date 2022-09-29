@@ -56,7 +56,7 @@
                                             <td><num></td>
                                             <td class="txt-oflo">Name: {{order.user.first_name}}  {{order.user.last_name}} <br> Username:{{order.user.username}} <br> Email:{{order.user.email}}</td>
                                             <td>{{order.date}}</td>
-                                            <td>{{order.cake_list.name}} <br> ₹{{order.cake_list.price}} <br> <img src="/media/{{order.cake_list.image}}" style="height: 100px; width:125px"> </td>
+                                            <td>{{order.cake_list.name}} <br> Shs:{{order.cake_list.price}} <br> <img src="/media/{{order.cake_list.image}}" style="height: 100px; width:125px"> </td>
                                             <td class="txt-oflo">{{order.first_name}}&nbsp;{{order.last_name}} <br> {{order.house_name}}<br>{{order.location}}<br>Pin:{{order.pin}} <br> Phone: {{order.phone}} <br> Email: {{order.email}}</td>
                                             {% if order.status == 'Pending' %}
                                             <td><span class="text-info" style="font-weight: bolder;font-size: larger;">₹ {{order.cake_list.price}} <br> {{order.status}}</span></td>

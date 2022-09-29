@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "verify_email.apps.VerifyEmailConfig",
 
     'crispy_forms',
     'home',
@@ -63,6 +64,14 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'TASTYPROJECT.urls'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('EMAIL_ID') 
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PW')
+
+DEFAULT_FROM_EMAIL = 'noreply<no_reply@domain.com>'
 
 TEMPLATES = [
     {
@@ -84,6 +93,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'TASTYPROJECT.wsgi.application'
+
+
+EMAIL_BACKEND= 'django.core.mail.backends.console.EmailBackend'
 
 
 # Database
@@ -147,6 +159,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 if DEBUG:
-    STRIPE_PUBLISHABLE_KEY = 'pk_test_51LkTDdJhzhPSz8X18Y0SZ45bhH8zaXN5yE0Zt7Bm5UzOJHAsolYEBo4krHlk1AKHKiOFMDBaH6iBiw1EG0SltNjT007s9QXVzw'
+    STRIPE_PUBLIC_KEY = 'pk_test_51LkTDdJhzhPSz8X18Y0SZ45bhH8zaXN5yE0Zt7Bm5UzOJHAsolYEBo4krHlk1AKHKiOFMDBaH6iBiw1EG0SltNjT007s9QXVzw'
     STRIPE_SECRET_KEY = 'sk_test_51LkTDdJhzhPSz8X19ASmxqQbW1wB2LKJkQ1ZFjESpHvrUFVU5TGFuKnok2pb7iq4MMISLAVNjj0xDCJtIrzeYPzB00V8Suitrk'
     STRIPE_WEBHOOK_SECRET = ''

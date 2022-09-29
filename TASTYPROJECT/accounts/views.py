@@ -51,9 +51,11 @@ def sign_up(request):
     form = SignUpForm(request.POST or None)
     context= dict()
     context["form"] = form
+    inactive_user.cleaned_data['email']
     if request.method == "POST":
         if form.is_valid(): 
             user=form.save()
+            inactive_user = send_verification_email(request, form)
             login(request,user)      
             return redirect(reverse('accounts:homepage'))
         else:
@@ -102,9 +104,9 @@ def messages(request):
     context = dict()
     form = message_form(request.POST or None)
     context['form'] = form
-    if request.method == "POST":
+    if request == request.POST:
         if form.is_valid: 
-            order=form.save()
+            
             mssg.info(request,'Thank you for filling the form. Will get back to you soon')
     return render(request,'accounts/messages.html',context)
 

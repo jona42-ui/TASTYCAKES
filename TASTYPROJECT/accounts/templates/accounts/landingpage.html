@@ -14,6 +14,7 @@
 </head>
 
 <body>
+  
   <section class="mbr-gallery cid-rbaMy1tJOl" once="shops" id="shop6-2" data-sortbtn="btn-primary">
     <div>
       <div class="mbr-shop" shop__showsidebar="">
@@ -21,23 +22,66 @@
         <div class="row col-md-12">
           <div class="col-xl-2 sidebar">
             {% include 'accounts/components/sidebar.html' %}
+            name : {{product.name}}
           </div>
           <div class="col-xl-1"></div>
           <div class="wrapper-shop-items col-xl-7">
+
             <h4>Please do not exit the tab before completing the payment</h4>
             <h6>After clicking on proceed button, please wait a few seconds to while connecting securely.</h6>
             <div>
-              <button class="btn btn-success"  id="checkout-button">Proceed</button>
+              <button class="btn btn-success"  id="paypal-button-container">Proceed</button>
             </div>
           </div>
 
   </section>
   {% csrf_token %}
 </body>
+<!-- PAYPAL -->
+
+
+<div id="paypal-button-container"></div>
+<!-- Include the PayPal JavaScript SDK -->
+<script src="https://www.paypal.com/sdk/js?client-id=AQ_GBdwtTqiUOz4sHeepW15zi01VONFmpXtZGko2Va7E-EefCO-YDpuyjhm6qTh7OWbe8Z1fu8DTx4n5&currency=USD"></script>
+<script>
+ // Render the PayPal button into #paypal-button-container
+ paypal.Buttons({
+
+     // Set up the transaction
+     createOrder: function(data, actions) {
+         return actions.order.create({
+             purchase_units: [{
+                 amount: {
+                     value: '88.44'
+                 }
+             }]
+         });
+     },
+
+     // Finalize the transaction
+     onApprove: function(data, actions) {
+         return actions.order.capture().then(function(orderData) {
+             // Successful capture! For demo purposes:
+             console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+             var transaction = orderData.purchase_units[0].payments.captures[0];
+             alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+
+             // Replace the above to show a success message within this page, e.g.
+             // const element = document.getElementById('paypal-button-container');
+             // element.innerHTML = '';
+             // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+             // Or go to another URL:  actions.redirect('thank_you.html');
+         });
+     }
+
+
+ }).render('#paypal-button-container');
+</script>
+
   <script type="text/javascript">
   const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     // Create an instance of the Stripe object with your publishable API key
-    var stripe = Stripe("pk_test_51IqKbySADauyMaoOtapXqTTr0TccaOhUIaC7gRjbVQLWEVJ2i0eauSBT4x9YOF5djlXZHLYfgZXWPhcDmguR25WJ006Cu5CMXm");
+    var stripe = Stripe("{{STRIPE_PUBLIC_KEY}}");
     var checkoutButton = document.getElementById("checkout-button");
     checkoutButton.addEventListener("click", function () {
       fetch("{% url 'accounts:create-checkout-session' id %}", {

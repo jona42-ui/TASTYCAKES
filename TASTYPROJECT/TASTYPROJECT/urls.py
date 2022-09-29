@@ -17,12 +17,24 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from products.views import (CreateCheckoutSessionView,
+                            ProdutLandingPageView,
+                            
+                            )
+
+app_name='products'
 
 urlpatterns = [
     path('home/', include('home.urls')),
     path('cart/',include('cart.urls', namespace='cart')),
     # path('products/',include('products.urls', namespace='products')),
-    path('admin/', include('admin.urls')),
     path('',include('accounts.urls',namespace='accounts')),
+    path('payment/',include('products.urls', namespace='products')),
+    # path('', include('home.urls')),
+    path('admin/', include('admin.urls')),
+    path('verification/', include('verify_email.urls')),
+    path('landingpage/',ProdutLandingPageView.as_view(), name='landing-page'),
+    path('create-checkout-session/<int:id>',CreateCheckoutSessionView.as_view(), name='create-checkout-session'),
+    
     
 ]   + static (settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
