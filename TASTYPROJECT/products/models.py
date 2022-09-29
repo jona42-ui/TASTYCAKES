@@ -70,6 +70,10 @@ class Product(models.Model):
             validators.MaxValueValidator(100000)
         ]
     )
+    def __str__(self):
+        return self.name
+    
+    file = models.FileField(upload_to="product_files/", blank=True,null=True)
     
     
     

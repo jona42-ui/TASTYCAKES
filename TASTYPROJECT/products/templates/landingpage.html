@@ -1,0 +1,135 @@
+{% extends 'accounts/components/base.html' %}
+{% load static %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Buy cool new product</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+
+<body>
+  <section class="mbr-gallery cid-rbaMy1tJOl" once="shops" id="shop6-2" data-sortbtn="btn-primary">
+    <div>
+      <div class="mbr-shop" shop__showsidebar="">
+        {% for item in cart%}
+        {% with product=item.product %}
+        <div class="row col-md-12">
+          <div class="col-xl-2 sidebar">
+            {% include 'accounts/components/sidebar.html' %}
+          </div>
+          <div class="col-xl-1"></div>
+          <div class="wrapper-shop-items col-xl-7">
+            <div class="text-center ml-5">
+              <div id="paypal-button-container"></div>
+              <!-- Include the PayPal JavaScript SDK -->
+              <script src="https://www.paypal.com/sdk/js?client-id=AQ_GBdwtTqiUOz4sHeepW15zi01VONFmpXtZGko2Va7E-EefCO-YDpuyjhm6qTh7OWbe8Z1fu8DTx4n5&currency=USD"></script>
+              <script>
+               // Render the PayPal button into #paypal-button-container
+               paypal.Buttons({
+                
+              
+                   // Set up the transaction
+                   createOrder: function(data, actions) {
+                       return actions.order.create({
+                           purchase_units: [{
+                               amount: {
+                                   value: '88.44'
+                               }
+                           }]
+                       });
+                   },
+              
+                   // Finalize the transaction
+                   onApprove: function(data, actions) {
+                       return actions.order.capture().then(function(orderData) {
+                           // Successful capture! For demo purposes:
+                           console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                           var transaction = orderData.purchase_units[0].payments.captures[0];
+                           alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+              
+                           // Replace the above to show a success message within this page, e.g.
+                           // const element = document.getElementById('paypal-button-container');
+                           // element.innerHTML = '';
+                           // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                           // Or go to another URL:  actions.redirect('thank_you.html');
+                       });
+                   }
+              
+              
+               }).render('#paypal-button-container');
+              </script>
+              
+              
+              </div>
+              
+              
+  
+  
+  
+  
+  
+          </div> <br>
+
+      
+            <!-- <div class="text-center"></div>   -->
+            
+
+
+
+
+
+
+
+        </section>
+                               
+          <div class="text-center">            
+        <p>TOTAL AMOUNT:</p>
+        <p>shs: {{item.total_price}}</p>
+            </div>  
+        {%endwith%}
+        {%endfor%}
+  
+  {% csrf_token %}
+</body>
+
+
+  <script type="text/javascript">
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    // Create an instance of the Stripe object with your publishable API key
+    var stripe = Stripe("{{STRIPE_PUBLIC_KEY}}");
+    var checkoutButton = document.getElementById("checkout-button");
+    checkoutButton.addEventListener("click", function () {
+      fetch("{% url 'products:create-checkout-session' 1 %}", {
+        method: "POST",
+        headers:{
+            'X-CSRFToken':csrftoken
+        }
+      })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (session) {
+          return stripe.redirectToCheckout({ sessionId: session.id });
+        })
+        .then(function (result) {
+          // If redirectToCheckout fails due to a browser or network
+          // error, you should display the localized error message to your
+          // customer using error.message.
+          if (result.error) {
+            alert(result.error.message);
+          }
+        })
+        .catch(function (error) {
+          console.error("Error:", error);
+        });
+    });
+  </script>
+</html>
+
+{% endblock %}  

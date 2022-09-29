@@ -1,12 +1,13 @@
 {% extends "products/base.html"%}
 {%load static%}
-
 {%block title%}
 shopping cart
 {%endblock%}
 
 {%block content%}
 <div class="mb-5"></div>
+<h1>Shopping cart Summary</h1>
+
 <table class="cart">
     <thead>
         <tr>
@@ -60,43 +61,5 @@ shopping cart
     <a href="{% url 'accounts:homepage' %}" class="buttonlight">continue shopping</a>
     <a href="{% url 'accounts:checkout' user.id %}" class="button"> checkout</a>
 </p>
-<!-- 
-<div align="center">
-    <div id="loginScreen">
-    <a href="#" class="cancel">×</a>
-    <div class="payment-methods">
-        <ul>
-            <li  class="method">
-                <p>with mobile money</p>
-                <div id="mobilemoney">
-                    <form action="" method="post">
-                        {{make_order_form}}
-                        <input type="submit" value="order">
-                    </form>
-                </div>
-            </li>
-            <li class="method">
-                <p>with payments gateway</p>
-                <div id="mobilemoney">
-                    <form action="" method="post">
-                        <ul>
-                            <li> <input type="checkbox" name="paymethod" id=""> payperl</li>
-                            <li> <input type="checkbox" name="paymethod" id=""> credit card</li>
-                        </ul>
-                        <input type="submit" value="order">
-                    </form>
-                </div>
-            </li>
-            <li class="method">
-                <p>payments on deliverly</p>
-                <form action="" method="post">
-                    <input type="submit" value="order">
-                </form>
-            </li>
-        </ul>
-    </div>
-    </div>
-    <div id="cover" >     
-    </div> -->
 
 {%endblock%}
