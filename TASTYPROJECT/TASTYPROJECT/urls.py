@@ -19,10 +19,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('',include('accounts.urls',namespace='accounts')),
     path('home/', include('home.urls')),
     path('cart/',include('cart.urls', namespace='cart')),
     # path('products/',include('products.urls', namespace='products')),
-    path('admin/', include('admin.urls'))
+    path('admin/', include('admin.urls')),
+    path('',include('accounts.urls',namespace='accounts')),
     
 ]   + static (settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
