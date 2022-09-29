@@ -26,9 +26,9 @@ class cake_list(models.Model):
     updated = models.DateTimeField(auto_now=True, null=True)
 
 class orders(models.Model):
-    first_name = models.CharField(max_length=30,default="masuba")
-    last_name = models.CharField(max_length=30,default="abdqadir")
-    email=models.EmailField(max_length=64 ,default="masuba@gmail.com")
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    email=models.EmailField(max_length=64)
     paid_amount = models.IntegerField()
     phone = models.CharField(max_length=30)
     house_name = models.CharField(max_length=80)

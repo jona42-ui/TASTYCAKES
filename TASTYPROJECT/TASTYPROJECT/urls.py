@@ -25,9 +25,10 @@ from products.views import (CreateCheckoutSessionView,
 app_name='products'
 
 urlpatterns = [
-    path('',include('accounts.urls',namespace='accounts')),
     path('home/', include('home.urls')),
     path('cart/',include('cart.urls', namespace='cart')),
+    # path('products/',include('products.urls', namespace='products')),
+    path('',include('accounts.urls',namespace='accounts')),
     path('payment/',include('products.urls', namespace='products')),
     # path('', include('home.urls')),
     path('admin/', include('admin.urls')),

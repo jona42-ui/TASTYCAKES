@@ -15,7 +15,7 @@
                     </div>
                     <div class="col-xl-1"></div>
                     <div class="wrapper-shop-items col-xl-7">
-                        <form method="post" id="myform" >
+                        <form method="post" action="" id="myform" >
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
@@ -23,16 +23,17 @@
                                     <p><b>First Name :</b> {{customer.first_name}}</p>
                                     <p><b>Last Name :</b> {{customer.last_name}}</p>
                                     
+                                    
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
-                                   
+                                    <p><b>Last Name :</b> {{customer.last_name}}</p>
                                     
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">    
                                     <p><b>Email :</b> {{customer.email}}</p>
-                                    
+                                   
                                 </div> 
                                 <div class="col-6">
                                     <p><b>total amount to pay:</b>{{cart.get_total_price}}</p>
@@ -42,6 +43,7 @@
                                                  autocomplete="first_name" autofocus=""
                                                 class="textinput textInput form-control" required="">
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -49,14 +51,12 @@
                                 <div class="col-6">
                                     <div  class="form-group"> 
                                         <div class="">
-                                                {{ form.house_name | as_crispy_field}}
                                         </div>
                                     </div>
                                 </div> 
                                 <div class="col-6">
                                     <div  class="form-group"> 
                                         <div class="">
-                                                {{ form.phone | as_crispy_field}}
                                         </div>
                                     </div>
                                 </div>
@@ -66,14 +66,15 @@
                                 <div class="col-6">
                                     <div  class="form-group"> 
                                         <div class="">
-                                                {{ form.pin | as_crispy_field}}
                                         </div>
                                     </div>
                                 </div> 
                                 <div class="col-6">
                                     <div  class="form-group"> 
                                         <div class="">
-                                                {{ form.location | as_crispy_field}}
+                                                
+
+                                                {{form}}
                                         </div>
                                     </div>
                                 </div>
@@ -99,4 +100,5 @@
         </div>
 
     </section>
+
     {% endblock %}  

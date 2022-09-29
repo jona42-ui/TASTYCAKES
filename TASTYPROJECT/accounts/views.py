@@ -1,3 +1,5 @@
+from urllib import request
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,reverse,redirect,get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
@@ -6,10 +8,9 @@ from django.contrib import messages as mssg
 from products.models import cake_list,orders,messages
 from .forms import SignUpForm
 from products.forms import make_order_form,message_form
-
-
 from cart.forms import CartAddProductForm
 from cart.cart import Cart
+from django.db.models import Q
 # Create your views here.
 
 def indexpage(request):
@@ -25,8 +26,15 @@ def aboutus(request):
 
 
 def homepage(request):
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    items = cake_list.objects.filter(
+        Q(name__contains=q) |
+        Q(category__contains = q) |
+        Q(description__contains=q) |
+        Q(price__contains=q) 
+        )
     # context = dict()
-    items = cake_list.objects.all()
+    # items = cake_list.objects.all()
     # product = get_object_or_404(cake_list,id=id,slug = slug)
     cart_product_form = CartAddProductForm()
     # context['items'] = items
@@ -102,6 +110,7 @@ def messages(request):
             mssg.info(request,'Thank you for filling the form. Will get back to you soon')
     return render(request,'accounts/messages.html',context)
 
+
 def checkout(request,id):
     cart = Cart(request)
     context = dict()
@@ -112,12 +121,15 @@ def checkout(request,id):
     context['cart'] = cart
     if request.method == "POST":
         if form.is_valid(): 
-            order=form.save(commit = False)    
-            order.user_id = customer.id
-            order.cake_list_id = id
-            order = order.save()
-            context['id'] = id
+            order=form.save(commit=False)
+
+            # order.user_id = customer.id
+            order.user = request.user
+            # order.cake_list_id = id
+            order.save()
+            # context['id'] = id
             return render(request,'accounts/landingpage.html',context)
+
     return render(request,'accounts/delivery_details.html',context)
 
 
