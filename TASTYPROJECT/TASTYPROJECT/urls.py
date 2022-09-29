@@ -31,6 +31,7 @@ urlpatterns = [
     path('payment/',include('products.urls', namespace='products')),
     # path('', include('home.urls')),
     path('admin/', include('admin.urls')),
+    
     path('verification/', include('verify_email.urls')),
     path('landingpage/',ProdutLandingPageView.as_view(), name='landing-page'),
     path('create-checkout-session/<int:id>',CreateCheckoutSessionView.as_view(), name='create-checkout-session'),

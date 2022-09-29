@@ -43,11 +43,11 @@ def sign_up(request):
     form = SignUpForm(request.POST or None)
     context= dict()
     context["form"] = form
-    inactive_user.cleaned_data['email']
+    # inactive_user.cleaned_data['email']
     if request.method == "POST":
         if form.is_valid(): 
             user=form.save()
-            inactive_user = send_verification_email(request, form)
+            # inactive_user = send_verification_email(request, form)
             login(request,user)      
             return redirect(reverse('accounts:homepage'))
         else:
