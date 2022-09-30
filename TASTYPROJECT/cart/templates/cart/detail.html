@@ -29,7 +29,7 @@ shopping cart
                 </a>
             </td>
             <td>{{product.name}}</td>
-            <!-- <td>{{item.quantity}}</td> -->
+            <!-- <td>{{product.id}}</td> -->
             <td>
                 <form action="{% url 'cart:cart_add' product.id %}" method="post">
                     {{item.update_quantity_form.quantity}}

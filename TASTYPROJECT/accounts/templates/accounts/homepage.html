@@ -4,45 +4,7 @@
 {% load static %}
 {% block content %}
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
-    <div class="container">
-      <a class="navbar-brand" href="/">Cake Shop</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-          <form class="form-inline my-2 my-lg-0" action="/search">
-          <div class="input-group">
-              <input name="q" type="text" class="form-control" placeholder="search" />
-              <div class="input-group-append">
-                <button class="btn btn-dark" type="submit" id="button-addon2">Search</button>
-              </div>
-            </div>
-        </form>
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link text-white" href="/home">Home</a>
-          </li>
-         <li class="nav-item">
-            <a class="nav-link text-white" href="{% url 'accounts:homepage' %}">Products</a>
-          </li>
-         
-          
-          <li class="nav-item">
-              <a class="nav-link text-white" href="/login">Logout</a>
-            </li>
-            
-            <li class="nav-item">
-              <a class="nav-link text-white" href="{% url 'cart:cart_detail'  %}"><i class="fa fa-shopping-cart"></i> Cart (<span class="cart-list">
-                {% with total_items=cart|length %}
-                {{ total_items}}
-                {% endwith %}
-              </span>)</a>
-            </li>
-        </ul>
-      </div>
-    </div>
-</nav>
+
 
 <section class="mbr-gallery cid-rbaMy1tJOl" once="shops" id="shop6-2" data-sortbtn="btn-primary">
     <div>
@@ -72,15 +34,15 @@
                                             </div>
                                             <div class="sidebar_wraper">
                                                 <h4 class="item-title mbr-fonts-style mbr-text display-5">
-                                                    {{item.name}}
+                                                   <small><b>name:</b></small> <small>{{item.name}}</small>
                                                 </h4>
                                                 <div class="price-block">
                                                     <span class="shop-item-price mbr-fonts-style display-5">
-                                                        ugx {{item.price}}
+                                                       <b>Price</b> UGX {{item.price}}
                                                     </span>
                                                 </div>
                                                 <div class="card-description">
-                                                    {{item.description}}.&nbsp;
+                                                   <b>Description</b> {{item.description}}.&nbsp;
                     
                                                 </div>
                                                 <div class="mbr-section-btn" buttons="0" style="display: none;">

@@ -1,3 +1,4 @@
+from decimal import Decimal
 from urllib import request
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,reverse,redirect,get_object_or_404
@@ -121,14 +122,13 @@ def checkout(request,id):
     context['cart'] = cart
     if request.method == "POST":
         if form.is_valid(): 
-            order=form.save(commit=False)
-
-            # order.user_id = customer.id
-            order.user = request.user
-            # order.cake_list_id = id
+            order =form.save(commit=False)
+            order.user_id = request.user.id
+            order.cake_list_id = request.POST.get('product_id')
             order.save()
-            # context['id'] = id
-            return render(request,'accounts/landingpage.html',context)
+            context['id'] = id
+            cart.clear()
+            return redirect("/myorders/")
 
     return render(request,'accounts/delivery_details.html',context)
 

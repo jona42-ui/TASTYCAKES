@@ -48,9 +48,9 @@
                                         {{order.phone}} <br> Email: {{order.email}}
                                     </td>
                                     {% if order.status == 'Pending' %}
-                                    <td><span class="text-info" style="font-weight: bolder;font-size: larger;">₹ {{order.cake_list.price}} <br> {{order.status}}</span></td>
+                                    <td><span class="text-info" style="font-weight: bolder;font-size: larger;">UGX: {{order.cake_list.price}} <br> {{order.status}}</span></td>
                                     {% else %}
-                                    <td><span  style="font-weight: bolder;font-size: larger;color: green;">₹ {{order.cake_list.price}} <br> {{order.status}}</span></td>
+                                    <td><span  style="font-weight: bolder;font-size: larger;color: green;">UGX: {{order.cake_list.price}} <br> {{order.status}}</span></td>
                                     {% endif %}
                                     {% if order.order_status == 'True' %}
                                     <td><a class="btn btn-danger" href="{% url 'accounts:cancel-order' order.id %}">Cancel Order</a></td>
