@@ -1,6 +1,6 @@
 {% extends 'accounts/components/base.html' %}
 {% load static %}
-{% block content %}
+<!-- {% block content %} -->
 {% load crispy_forms_tags %}
 
 <!DOCTYPE html>
@@ -17,11 +17,10 @@
   <section class="mbr-gallery cid-rbaMy1tJOl" once="shops" id="shop6-2" data-sortbtn="btn-primary">
     <div>
       <div class="mbr-shop" shop__showsidebar="">
-        {% for item in cart%}
-        {% with product=item.product %}
         <div class="row col-md-12">
           <div class="col-xl-2 sidebar">
-            {% include 'accounts/components/sidebar.html' %}
+            <!-- <img src="https://clickadu.com/static/images/news-img/paypalOneclick.jpg" alt="">
+            {% include 'accounts/components/sidebar.html' %} -->
           </div>
           <div class="col-xl-1"></div>
           <div class="wrapper-shop-items col-xl-7">
@@ -39,7 +38,7 @@
                        return actions.order.create({
                            purchase_units: [{
                                amount: {
-                                   value: '88.44'
+                                   value: '1000'
                                }
                            }]
                        });
@@ -64,36 +63,14 @@
               
                }).render('#paypal-button-container');
               </script>
-              
-              
-              </div>
-              
-              
-  
-  
-  
-  
-  
-          </div> <br>
-
-      
-            <!-- <div class="text-center"></div>   -->
-            
-
-
-
-
-
-
-
-        </section>
+              <div class="text-center">            
+                <p>TOTAL AMOUNT DUE:</p>
+                <p>shs: {{cart.get_total_price}}</p>
+                    </div>  
+          </section>
                                
-          <div class="text-center">            
-        <p>TOTAL AMOUNT:</p>
-        <p>shs: {{item.total_price}}</p>
-            </div>  
-        {%endwith%}
-        {%endfor%}
+          
+        
   
   {% csrf_token %}
 </body>
@@ -132,4 +109,4 @@
   </script>
 </html>
 
-{% endblock %}  
+<!-- {% endblock %}   -->

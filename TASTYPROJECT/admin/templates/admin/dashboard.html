@@ -59,9 +59,9 @@
                                             <td>{{order.cake_list.name}} <br> Shs:{{order.cake_list.price}} <br> <img src="/media/{{order.cake_list.image}}" style="height: 100px; width:125px"> </td>
                                             <td class="txt-oflo">{{order.first_name}}&nbsp;{{order.last_name}} <br> {{order.house_name}}<br>{{order.location}}<br>Pin:{{order.pin}} <br> Phone: {{order.phone}} <br> Email: {{order.email}}</td>
                                             {% if order.status == 'Pending' %}
-                                            <td><span class="text-info" style="font-weight: bolder;font-size: larger;">₹ {{order.cake_list.price}} <br> {{order.status}}</span></td>
+                                            <td><span class="text-info" style="font-weight: bolder;font-size: larger;">sh: {{order.cake_list.price}} <br> {{order.status}}</span></td>
                                             {% else %}
-                                            <td><span class="text-success" style="font-weight: bolder;font-size: larger;">₹ {{order.cake_list.price}} <br> {{order.status}} </span> <br>  {% if order.order_status == 'Cancelled' %} <span class="text-danger" style="font-weight: bolder;font-size: larger;"> Order was cancelled later<br> and should be refunded </span> {% endif %} </td>
+                                            <td><span class="text-success" style="font-weight: bolder;font-size: larger;">sh: {{order.cake_list.price}} <br> {{order.status}} </span> <br>  {% if order.order_status == 'Cancelled' %} <span class="text-danger" style="font-weight: bolder;font-size: larger;"> Order was cancelled later<br> and should be refunded </span> {% endif %} </td>
                                             {% endif %}
                                         </tr>
                                         {% endfor %}
